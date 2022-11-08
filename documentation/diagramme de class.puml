@@ -1,0 +1,36 @@
+@startuml
+
+class Etablissement {
+    -nom:string
+    -slug:string
+    -description:string
+    -numéro:int
+    -adresse:string
+    -ville: Ville
+    -email:string
+    -image:string
+    -actif:bool
+    -accueil:bool
+    -createdAt :DATETIME
+    -updateAt :DATETIME
+    -categorie : Categorie
+}
+
+class Ville {
+    -nom : string
+    -codePostal : string
+    -département :string
+    -numeroDepartement : string
+    -region :string
+}
+
+class Categorie{
+    -nom :string
+    -createdAt:DATETIME
+}
+
+Ville --> Etablissement
+Categorie --> Etablissement
+
+
+@enduml
