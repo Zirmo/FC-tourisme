@@ -1,10 +1,11 @@
 @startuml
 
 class Etablissement {
+
     -nom:string
     -slug:string
     -description:string
-    -numéro:int
+    -telephone:string
     -adresse:string
     -ville: Ville
     -email:string
@@ -13,7 +14,7 @@ class Etablissement {
     -accueil:bool
     -createdAt :DATETIME
     -updateAt :DATETIME
-    -categorie : Categorie
+    -categorie : Categorie[]
 }
 
 class Ville {
@@ -29,8 +30,8 @@ class Categorie{
     -createdAt:DATETIME
 }
 
-Ville --> Etablissement
-Categorie --> Etablissement
+Ville "1..1"-- "0..*" Etablissement
+Categorie "1..1"--"0..*" Etablissement
 
 
-@enduml
+@endum
