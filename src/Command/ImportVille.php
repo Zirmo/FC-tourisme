@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Entity\Ville;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,11 +51,17 @@ class ImportVille extends Command{
             $numero=$record["Département"];
             if($numero==25 || $numero==39 || $numero==70 || $numero==90){
                 $ville=new Ville();
-                $ville->setNom($record["Commune"]);
+                if(empty($record["Ancienne commune"])){
+                    $ville->setNom($record["Commune"]);
+                }else{
+
+                    $ville->setNom($record["Commune"]." - ".$record["Ancienne commune"]);
+                }
                 $ville->setCodePostal($record["Code postal"]);
                 $ville->setDepartement($record["Nom département"]);
                 $ville->setNumeroDepartement($record["Département"]);
                 $ville->setRegion($record["Région"]);
+
                 $this->manager->persist($ville);
 
             }
