@@ -37,7 +37,7 @@ class EtablissementFixtures extends Fixture
         $maxCat = max($numCat);
 
         for ($i = 0; $i < 300; $i++) {
-            $numCate = $faker->numberBetween($minCat->getId(), $maxCat->getId());
+
             $numVille = $faker->numberBetween($min->getId(), $max->getId());
             $etablissement = new Etablissement();
             $etablissement->setNom($faker->realTextBetween(5, 20))
@@ -56,7 +56,8 @@ class EtablissementFixtures extends Fixture
                 ->setAccueil($faker->boolean());
 
             //a modifier plus tard
-            $etablissement->addCategorie($this->categorieRepository->find($numCate));
+            $etablissement->addCategorie($this->categorieRepository->find($faker->numberBetween($minCat->getId(), $maxCat->getId())));
+            $etablissement->addCategorie($this->categorieRepository->find($faker->numberBetween($minCat->getId(), $maxCat->getId())));
 
             $etablissement->setCreatedAt($faker->dateTimeBetween("-1 years"));
 

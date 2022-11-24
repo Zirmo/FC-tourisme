@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des établissements{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 >Liste des établissement</h1>
+
+
+            {% for etablissement in etablissements %}
+                <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ etablissement.image }}" class="img-fluid rounded-start" alt="image etablissement">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ etablissement.nom }}</h5>
+                            <p class="card-text">{{ etablissement.description }}</p>
+                            <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>
+                            {% for categorie in etablissement.categorie %}
+                                <p class="card-text">{{ categorie.nom }}</p>
+                            {% endfor %}
+                            <p class="card-text"><small class="text-muted">{{ etablissement.createdAt |date("m/d/Y") }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(etablissements) }}
+    </div>
+{% endblock %}
