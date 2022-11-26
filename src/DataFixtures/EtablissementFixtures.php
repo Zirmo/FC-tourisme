@@ -26,15 +26,16 @@ class EtablissementFixtures extends Fixture
         $this->categorieRepository = $categorieRepository;
     }
 
+
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create("fr_FR");
-        $num = $this->villeRepository->findAll();
-        $min = min($num);
-        $max = max($num);
-        $numCat = $this->categorieRepository->findAll();
-        $minCat = min($numCat);
-        $maxCat = max($numCat);
+
+        $min = min($this->villeRepository->findAll());
+        $max = max($this->villeRepository->findAll());
+        $minCat = min($this->categorieRepository->findAll());
+        $maxCat = max($this->categorieRepository->findAll());
 
         for ($i = 0; $i < 300; $i++) {
 
@@ -50,7 +51,7 @@ class EtablissementFixtures extends Fixture
                 ->setEmail($faker->email())
 
                 //a modifier plus tard
-                ->setImage($faker->imageUrl(360, 360, "hotel", true))
+                ->setImage($faker->imageUrl(500, 300, $etablissement->getNom(), true))
 
                 ->setActif($faker->boolean())
                 ->setAccueil($faker->boolean());

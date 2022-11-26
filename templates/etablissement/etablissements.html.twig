@@ -3,32 +3,31 @@
 {% block title %}Liste des établissements{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 >Liste des établissement</h1>
 
-
+        <h1 class="d-flex justify-content-center mt-5 mb-5">Les établissements de la région Franche-Comté</h1>
+            <div class="container">
+            <div class="row align-items-center ">
             {% for etablissement in etablissements %}
-                <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ etablissement.image }}" class="img-fluid rounded-start" alt="image etablissement">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ etablissement.nom }}</h5>
-                            <p class="card-text">{{ etablissement.description }}</p>
-                            <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>
+                <div class="col mb-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ etablissement.image }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                     <h5 class="card-title">{{ etablissement.nom }}</h5>
+
+                        <p class="card-text">{{ etablissement.description|striptags|slice(0, 75)}}</p>
+                        <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>
+                        <p class="card-text">
                             {% for categorie in etablissement.categorie %}
-                                <p class="card-text">{{ categorie.nom }}</p>
+                                <span class="badge bg-warning text-wrap"> {{ categorie.nom }}</span>
                             {% endfor %}
-                            <p class="card-text"><small class="text-muted">{{ etablissement.createdAt |date("m/d/Y") }}</small></p>
-                        </div>
+                        </p>
+                        <a class="btn btn-outline-primary" href="{{ path('app_etablissement_slug', { slug : etablissement.slug}) }}" role="button">Voir</a>
+
                     </div>
                 </div>
-            </div>
-
+                </div>
             {% endfor %}
-        </ul>
+            </div>
     </div>
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(etablissements) }}

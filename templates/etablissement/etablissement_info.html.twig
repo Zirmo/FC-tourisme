@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des établissements{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center mt-3">
+
+        <img src="{{ etablissement.image }}" class="img-fluid" alt="...">
+
+    </div>
+    <div class="d-flex justify-content-center">
+        <h1><strong>{{ etablissement.nom }}</strong></h1>
+
+    </div>
+    <div class="d-flex justify-content-center">
+        {% for categorie in etablissement.categorie %}
+            <span class="badge bg-warning text-wrap m-1"> {{ categorie.nom }}</span>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center">
+        <p>{{ etablissement.description}}</p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p>L'établissement est situé <au>&</au> {{ etablissement.adresse }}, <strong>{{ etablissement.ville.nom }}</strong>,{{ etablissement.ville.codePostal }} </p>
+    </div>
+
+
+{% endblock %}
