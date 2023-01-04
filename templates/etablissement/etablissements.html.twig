@@ -10,11 +10,15 @@
             {% for etablissement in etablissements %}
                 <div class="col mb-3">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ etablissement.image }}" class="card-img-top" alt="...">
+                    {% if etablissement.image %}
+                        <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement">
+                    {% else %}
+                        <img src="https://www.mjc-castanet-tolosan.fr/wp-content/uploads/2016/06/Pas-dimage-disponible1-e1466657277567.jpg" class="card-img-top" alt="image_etablissement">
+                    {% endif%}
                     <div class="card-body">
                      <h5 class="card-title">{{ etablissement.nom }}</h5>
 
-                        <p class="card-text">{{ etablissement.description|striptags|slice(0, 75)}}</p>
+                        <p class="card-text">{{ etablissement.description|slice(0, 75)}}</p>
                         <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>
                         <p class="card-text">
                             {% for categorie in etablissement.categorie %}

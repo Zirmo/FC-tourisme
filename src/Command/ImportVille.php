@@ -49,6 +49,7 @@ class ImportVille extends Command{
 
         foreach ($records as $record) {
             $numero=$record["Département"];
+
             if($numero==25 || $numero==39 || $numero==70 || $numero==90){
                 $ville=new Ville();
                 if(empty($record["Ancienne commune"])){

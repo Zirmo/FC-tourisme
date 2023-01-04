@@ -37,7 +37,9 @@ class EtablissementFixtures extends Fixture
         $minCat = min($this->categorieRepository->findAll());
         $maxCat = max($this->categorieRepository->findAll());
 
+
         for ($i = 0; $i < 300; $i++) {
+            $numImage = rand(0, 4);
 
             $numVille = $faker->numberBetween($min->getId(), $max->getId());
             $etablissement = new Etablissement();
@@ -49,14 +51,14 @@ class EtablissementFixtures extends Fixture
 
             $etablissement->setVille($this->villeRepository->find($numVille))
                 ->setEmail($faker->email())
-
-                //a modifier plus tard
-                ->setImage($faker->imageUrl(500, 300, $etablissement->getNom(), true))
-
                 ->setActif($faker->boolean())
                 ->setAccueil($faker->boolean());
 
-            //a modifier plus tard
+            if($numImage>2){
+                $etablissement->setImage($faker->imageUrl(500, 300, $etablissement->getNom(), true));
+            }
+
+
             $etablissement->addCategorie($this->categorieRepository->find($faker->numberBetween($minCat->getId(), $maxCat->getId())));
             $etablissement->addCategorie($this->categorieRepository->find($faker->numberBetween($minCat->getId(), $maxCat->getId())));
 

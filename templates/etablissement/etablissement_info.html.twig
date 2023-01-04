@@ -4,9 +4,9 @@
 
 {% block body %}
     <div class="d-flex justify-content-center mt-3">
-
-        <img src="{{ etablissement.image }}" class="img-fluid" alt="...">
-
+        {% if etablissement.image %}
+            <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement">
+        {% endif%}
     </div>
     <div class="d-flex justify-content-center">
         <h1><strong>{{ etablissement.nom }}</strong></h1>
@@ -21,7 +21,13 @@
         <p>{{ etablissement.description}}</p>
     </div>
     <div class="d-flex justify-content-center">
-        <p>L'établissement est situé <au>&</au> {{ etablissement.adresse }}, <strong>{{ etablissement.ville.nom }}</strong>,{{ etablissement.ville.codePostal }} </p>
+        <p><i class="bi bi-geo-fill"></i>L'établissement est situé  au {{ etablissement.adresse }}, <strong>{{ etablissement.ville.nom }}</strong>,{{ etablissement.ville.codePostal }} </p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p>Pour contacter l'etablissement : email <i class="bi bi-envelope"></i>: {{ etablissement.email }} , téléphone <i class="bi bi-telephone-fill"></i>: {{ etablissement.telephone }}</p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p>Actif depuis {{ etablissement.createdAt | date("d/m/Y") }}</p>
     </div>
 
 
