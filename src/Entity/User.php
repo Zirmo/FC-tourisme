@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -56,6 +58,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    #[ORM\ManyToMany(targetEntity: etablissement::class, inversedBy: 'users')]
+    private Collection $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +205,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, etablissement>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favories;
+    }
+
+    public function addFavory(etablissement $favory): self
+    {
+        if (!$this->favories->contains($favory)) {
+            $this->favories->add($favory);
+        }
+
+        return $this;
+    }
+
+    public function removeFavory(etablissement $favory): self
+    {
+        $this->favories->removeElement($favory);
 
         return $this;
     }
