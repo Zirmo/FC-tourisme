@@ -11,12 +11,16 @@
                 <div class="col mb-3">
                 <div class="card" style="width: 18rem;">
                     {% if etablissement.image %}
-                        <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement">
+                        <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement" width="400" height="200">
                     {% else %}
-                        <img src="https://www.mjc-castanet-tolosan.fr/wp-content/uploads/2016/06/Pas-dimage-disponible1-e1466657277567.jpg" class="card-img-top" alt="image_etablissement">
+                        <img src="https://www.mjc-castanet-tolosan.fr/wp-content/uploads/2016/06/Pas-dimage-disponible1-e1466657277567.jpg" class="card-img-top" alt="image_etablissement" width="400" height="200">
                     {% endif%}
                     <div class="card-body">
-                     <h5 class="card-title">{{ etablissement.nom }}</h5>
+                        <h5 class="card-title">{{ etablissement.nom }}  {% if etablissement in app.user.getFavoris %}
+                                <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star-fill text-warning"></i></a>
+                            {% else %}
+                                <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star text-warning"></i></a>
+                            {% endif %}</h5>
 
                         <p class="card-text">{{ etablissement.description|slice(0, 75)}}</p>
                         <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>

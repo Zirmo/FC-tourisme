@@ -3,32 +3,29 @@
 {% block title %}Liste des établissements{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center mt-3">
-        {% if etablissement.image %}
-            <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement">
-        {% endif%}
-    </div>
-    <div class="d-flex justify-content-center">
-        <h1><strong>{{ etablissement.nom }}</strong></h1>
+    <div class="d-flex justify-content-center mt-3 ">
+        <div class="card mb-3 text-center" style="width: 60rem;">
+            {% if etablissement.image %}
+                <img src="{{ etablissement.image }}" class="card-img-top " alt="image_etablissement" >
+            {% else %}
+                <img src="https://www.mjc-castanet-tolosan.fr/wp-content/uploads/2016/06/Pas-dimage-disponible1-e1466657277567.jpg" class="card-img-top" alt="image_etablissement" width="953px" height="572px" >
+            {% endif%}
+            <div class="card-body">
+                <h5 class="card-title"><strong>{{ etablissement.nom }}</strong>{% if etablissement in app.user.getFavoris %}
+                    <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star-fill text-warning"></i></a>
+                {% else %}
+                    <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star text-warning"></i></a>
+                    {% endif %}</h5>
+                {% for categorie in etablissement.categorie %}
+                    <span class="badge bg-warning text-wrap m-1"> {{ categorie.nom }}</span>
+                {% endfor %}
+                <p class="card-text">{{ etablissement.description}}</p>
+                <p class="card-text"><i class="bi bi-geo-fill"></i>L'établissement est situé  au {{ etablissement.adresse }}, <strong>{{ etablissement.ville.nom }}</strong>,{{ etablissement.ville.codePostal }} </p>
+                <p class="card-text">Pour contacter l'etablissement : <i class="bi bi-envelope"></i>: {{ etablissement.email }} , <i class="bi bi-telephone-fill"></i>: {{ etablissement.telephone }}</p>
+                <p class="card-text">Actif depuis {{ etablissement.createdAt | date("d/m/Y") }}</p>
+            </div>
+        </div>
 
     </div>
-    <div class="d-flex justify-content-center">
-        {% for categorie in etablissement.categorie %}
-            <span class="badge bg-warning text-wrap m-1"> {{ categorie.nom }}</span>
-        {% endfor %}
-    </div>
-    <div class="d-flex justify-content-center">
-        <p>{{ etablissement.description}}</p>
-    </div>
-    <div class="d-flex justify-content-center">
-        <p><i class="bi bi-geo-fill"></i>L'établissement est situé  au {{ etablissement.adresse }}, <strong>{{ etablissement.ville.nom }}</strong>,{{ etablissement.ville.codePostal }} </p>
-    </div>
-    <div class="d-flex justify-content-center">
-        <p>Pour contacter l'etablissement : email <i class="bi bi-envelope"></i>: {{ etablissement.email }} , téléphone <i class="bi bi-telephone-fill"></i>: {{ etablissement.telephone }}</p>
-    </div>
-    <div class="d-flex justify-content-center">
-        <p>Actif depuis {{ etablissement.createdAt | date("d/m/Y") }}</p>
-    </div>
-
 
 {% endblock %}

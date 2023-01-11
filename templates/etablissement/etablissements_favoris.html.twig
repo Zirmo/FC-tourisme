@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des établissements{% endblock %}
+
+{% block body %}
+
+    <h1 class="d-flex justify-content-center mt-5 mb-5">Vos établissements favoris</h1>
+    <div class="container">
+        <div class="row align-items-center ">
+            {% for etablissement in etablissements %}
+                <div class="col mb-3">
+                    <div class="card" style="width: 18rem;">
+                        {% if etablissement.image %}
+                            <img src="{{ etablissement.image }}" class="card-img-top" alt="image_etablissement" width="400" height="200">
+                        {% else %}
+                            <img src="https://www.mjc-castanet-tolosan.fr/wp-content/uploads/2016/06/Pas-dimage-disponible1-e1466657277567.jpg" class="card-img-top" alt="image_etablissement" width="400" height="200">
+                        {% endif%}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ etablissement.nom }}  {% if etablissement in app.user.getFavoris %}
+                                    <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star-fill text-warning"></i></a>
+                                {% else %}
+                                    <a href="{{ path('app_etablissement_favory' , {slug : etablissement.slug}) }}" ><i class="bi bi-star text-warning"></i></a>
+                                {% endif %}</h5>
+
+                            <p class="card-text">{{ etablissement.description|slice(0, 75)}}</p>
+                            <p class="card-text">{{ etablissement.ville.codePostal }} {{ etablissement.ville.nom }}</p>
+                            <p class="card-text">
+                                {% for categorie in etablissement.categorie %}
+                                    <span class="badge bg-warning text-wrap"> {{ categorie.nom }}</span>
+                                {% endfor %}
+                            </p>
+                            <a class="btn btn-outline-primary" href="{{ path('app_etablissement_slug', { slug : etablissement.slug}) }}" role="button">Voir</a>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(etablissements) }}
+    </div>
+{% endblock %}

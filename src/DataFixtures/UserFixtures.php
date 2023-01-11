@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Etablissement;
 use App\Entity\User;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -32,11 +33,27 @@ class UserFixtures extends Fixture
             }else{
                 $user->setActif(1);
             }
-            $user->setRoles(['ROLE_USER']);
+
+            $randomArray = rand(0,2);
+            if($randomArray ==  1){
+                $user->setRoles(['ROLE_USER']);
+            }elseif ($randomArray == 0){
+                $user->setRoles(['ROLE_ADMIN']);
+            }else{
+                $user->setRoles(['ROLE_RESTAURANT']);
+            }
+
 
             $manager->persist($user);
 
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            EtablissementFixtures::class
+        ];
     }
 }

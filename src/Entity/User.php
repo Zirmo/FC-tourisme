@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $actif = null;
 
-    #[ORM\ManyToMany(targetEntity: etablissement::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Etablissement::class, inversedBy: 'users')]
     private Collection $favoris;
 
     public function __construct()
@@ -214,13 +214,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getFavoris(): Collection
     {
-        return $this->favories;
+        return $this->favoris;
     }
 
     public function addFavory(etablissement $favory): self
     {
-        if (!$this->favories->contains($favory)) {
-            $this->favories->add($favory);
+        if (!$this->favoris->contains($favory)) {
+            $this->favoris->add($favory);
         }
 
         return $this;
@@ -228,7 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeFavory(etablissement $favory): self
     {
-        $this->favories->removeElement($favory);
+        $this->favoris->removeElement($favory);
 
         return $this;
     }

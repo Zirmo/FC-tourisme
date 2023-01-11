@@ -12,6 +12,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('app_etablissements') }}"><i class="bi bi-building"></i> Etablissements</a>
                 </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_etablissements_favoris') }}"><i class="bi bi-star-fill"></i> Favoris</a>
+                    </li>
+                {% endif %}
 
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
