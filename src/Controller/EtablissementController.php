@@ -69,7 +69,7 @@ class EtablissementController extends AbstractController
         }
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->redirectToRoute('app_etablissement_favoris');
+        return $this->redirectToRoute('app_etablissements_favoris');
 
     }
 
